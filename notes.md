@@ -7,3 +7,8 @@
 6. as such, if same author email is in e.g., 2006 and 2010, note both as bounced if it bounced.
 7. odds would be computed per year
 8. and these would be plottable.
+
+# november 20, 2015
+1. met with it-department, suggested using swaks to probe emails instead of actually delivering message to inbox.
+
+# november 22, 2015
