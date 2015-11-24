@@ -12,3 +12,21 @@
 1. met with it-department, suggested using swaks to probe emails instead of actually delivering message to inbox.
 
 # november 22, 2015
+1. might be useful code later `swaks -f someone@example.net -t liquidat@example.com --quit-after RCPT`
+2. seems like this would work `swaks --t chjh@protonmail.com --server smtp.gmail.com/587 -tls -a LOGIN --quit-after RCPT`
+3. now just need to find a loop and write out the emails that (do not) bounce
+4. `for E in 'cat /path/to/email/file'
+do
+     swaks --to $E --server test-server.example.com --quit-after RCPT --hide-all
+     [ $? -ne 0 ] && echo $E
+done`
+5. need to add -au [ausername] and -ap [apassword]
+6. need to figure out the server and protocol to use uni mail
+7. results in
+`for E in 'corresponding_emails'
+do
+     swaks --to $E --server [test-server.example.com] -tls -au [user] -ap [password] --quit-after RCPT --hide-all
+     [ $? -ne 0 ] && echo $E >> tested_email
+done`
+8. would first need to run `touch tested_email`
+9. 
