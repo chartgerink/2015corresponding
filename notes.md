@@ -11,7 +11,7 @@
 # november 20, 2015
 1. met with it-department, suggested using swaks to probe emails instead of actually delivering message to inbox.
 
-# november 22, 2015
+# november 23, 2015
 1. might be useful code later `swaks -f someone@example.net -t liquidat@example.com --quit-after RCPT`
 2. seems like this would work `swaks --t chjh@protonmail.com --server smtp.gmail.com/587 -tls -a LOGIN --quit-after RCPT`
 3. now just need to find a loop and write out the emails that (do not) bounce
@@ -29,4 +29,8 @@ do
      [ $? -ne 0 ] && echo $E >> tested_email
 done`
 8. would first need to run `touch tested_email`
-9. 
+
+
+# november 24, 2015
+1. noted that web of science will only allow 100,000 hits to be paginated. If I do publication date ascending and descending I will have 200,000 hits p/year, because all years have more than 1million hits. Will leave large gap in between but best I can do.
+2. 
