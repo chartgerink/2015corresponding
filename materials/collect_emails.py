@@ -1,3 +1,6 @@
+# dependencies
+# 1. selenium
+
 from time import sleep
 import selenium
 from selenium import webdriver
@@ -18,56 +21,55 @@ elem.click()
 elem = driver.find_element_by_xpath('//*[@id="collectionDropdown"]/ul/li[2]/a')
 elem.click()
 
-# set to search for year publsihed
-elem = driver.find_element_by_xpath('//*[@id="s2id_select1"]/a')
+# go to advanced search
+elem = driver.find_element_by_xpath('/html/body/div[1]/div[19]/h2/i')
 elem.click()
-elem = driver.find_element_by_xpath('//*[@id="select2-results-1"]')
+elem = driver.find_element_by_xpath('/html/body/div[1]/div[19]/h2/i/ul/li[4]/a')
 elem.click()
-
-# Search the year
-elem = driver.find_element_by_xpath('//*[@id="value(input1)"]')
-elem.send_keys('2014') # REPLACE by year variable at end
-elem.send_keys(Keys.RETURN)
 
 # select only english
-elem = driver.find_element_by_xpath('//*[@id="Language_img"]')
-elem.click()
-elem = driver.find_element_by_xpath('//*[@id="Language_1"]')
-elem.click()
-elem = driver.find_element_by_xpath('//*[@id="Language_tr"]/div[3]/a')
+elem = driver.find_element_by_xpath('//*[@id="value(input2)"]/option[2]')
 elem.click()
 
-# select only journal articles
-elem = driver.find_element_by_xpath('//*[@id="DocumentType_1"]')
-elem.click()
-elem = driver.find_element_by_xpath('//*[@id="DocumentType_tr"]/div[3]')
+# select only articles
+elem = driver.find_element_by_xpath('//*[@id="value(input3)"]/option[2]')
 elem.click()
 
-# save number of hits
-elem = driver.find_element_by_xpath('//*[@id="hitCount.top"]')
+for year in years:
+    # enter the year
+    elem = driver.find_element_by_xpath('//*[@id="value(input1)"]')
+    elem.send_keys('PY=%s' % str(year)) # REPLACE 2014 by year variable at end
+    elem = driver.find_element_by_xpath('//*[@id="searchButton"]/input')
+    elem.click()
+
+# for search in xrange(1, len(years) + 1):
+# open the next search
+xpath = '//*[@id="set_%s_div"]/a' % str(search)
+elem = driver.find_element_by_xpath(xpath)
 hits.append(elem.get_attribute('content'))
-
-# select Publication date -- newest to oldest [is default]
-
-# make the search page return 50 hits
-elem = driver.find_element_by_xpath('//*[@id="s2id_selectPageSize_.bottom"]/a')
-elem.click()
-elem = driver.find_element_by_xpath('//*[@id="select2-results-5"]')
 elem.click()
 
-# select all
-elem = driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[19]/div[2]/div/div/div/div[2]/div[3]/div[2]/div/div/div/div[1]/ul/li[1]/input')
+# loop over pages
+# take into account a max of 5000 hits to be put on marked list
+# this is 100 pages and 99 next page clicks
+
+# create loop over ascending/descending
+# create loop over 500 marked list
+
+i = 0 
+while(not (i % 50 == 0)):
+	# select all
+    elem = driver.find_element_by_xpath('//*[@id="page"]/div[1]/div[19]/div[2]/div/div/div/div[2]/div[3]/div[2]/div/div/div/div[1]/ul/li[1]/input')
+    elem.click()
+    # navigate to next page
+    # automatically adds selected to marked list
+    elem = driver.find_element_by_xpath('//*[@id="summary_navigation"]/table/tbody/tr/td[3]/a')
+    elem.click()
+    i += 1
+
+# navigate to marked list
+elem = driver.find_element_by_xpath('//*[@id="skip-to-navigation"]/ul[2]/li[3]/a')
 elem.click()
-
-# navigate to next page and automatically add to marked list
-elem = driver.find_element_by_xpath('//*[@id="summary_navigation"]/table/tbody/tr/td[3]/a')
-elem.click()
-
-# go to marked list
-
-# identify number of records on marked list
-elem = driver.find_element_by_xpath('//*[@id="skip-to-navigation"]/ul[2]/li[3]/a/span')
-marked = elem.get_attribute('content')
 
 # ensure only corresponding and source are checked
 # select all
@@ -81,6 +83,30 @@ elem = driver.find_element_by_xpath('//*[@id="ADDRS_fields"]')
 elem.click()
 elem = driver.find_element_by_xpath('//*[@id="SOURCE_fields"]')
 elem.click()
+
+# need to implement the downloading itself...
+elem = driver.find_element_by_xpath('//*[@id="s2id_saveToMenu"]/a/span[2]/b')
+elem.click()
+elem = driver.find_element_by_xpath('//*[@id="select2-drop"]')
+elem.click()
+###
+
+# empty marked list
+elem = driver.find_element_by_xpath('//*[@id="output_form"]/div[3]/span/input[2]')
+elem.click()
+try:
+    selsend_keys(Keys.RETURN)
+except selenium.common.exceptions.UnexpectedAlertPresentException
+
+elem = driver.find_element_by_xpath('//*[@id="skip-to-navigation"]/ul[1]/li[2]/a')
+elem.click()
+
+
+
+
+# go to marked list
+
+
 
 # download marked list per 500
 # iterate over records for download

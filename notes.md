@@ -33,4 +33,5 @@ done`
 
 # november 24, 2015
 1. noted that web of science will only allow 100,000 hits to be paginated. If I do publication date ascending and descending I will have 200,000 hits p/year, because all years have more than 1million hits. Will leave large gap in between but best I can do.
-2. 
+2. the marked list export is giving troubles. when i want to save the records the xpath gives an error in selenium. Looking for alternatives/
+3. 
