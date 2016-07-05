@@ -45,6 +45,12 @@ elem = driver.find_element_by_xpath('//*[@id="ResearchArea_1"]')
 elem.click()
 elem = driver.find_element_by_xpath('//*[@id="ResearchArea_tr"]/div[3]/a')
 elem.click()
+elem = driver.find_element_by_xpath('//*[@id="Language_img"]')
+elem.click()
+elem = driver.find_element_by_xpath('//*[@id="Language_1"]')
+elem.click()
+elem = driver.find_element_by_xpath('//*[@id="Language_tr"]/div[3]/a')
+elem.click()
 
 # 50 p/page
 elem = driver.find_element_by_xpath('//*[@id="s2id_selectPageSize_.bottom"]/a/span[2]/b')
