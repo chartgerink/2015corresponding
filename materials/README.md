@@ -7,10 +7,17 @@ The email files were collected from Web of Science, 2005-2015, topic "psychology
 To concatenate the files from `raw_wos` the following script was used (`pwd` was set to the materials folder)
 
 ```bash
-x=PT,AU,BA,BE,GP,AF,BF,CA,TI,SO,SE,BS,LA,DT,CT,CY,CL,SP,HO,DE,ID,AB,C1,RP,EM,RI,OI,FU,FX,CR,NR,TC,Z9,U1,U2,PU,PI,PA,SN,EI,BN,J9,JI,PD,PY,VL,IS,PN,SU,SI,MA,BP,EP,AR,DI,D2,PG,WC,SC,GA,UT,PM
+cat raw_wos/* | grep -A 10 "^EM " | grep "^EM " | cut -c 4- > emails
 
-cat raw_wos/* | sed 's/\t/,/g' > concatenated_raw.csv
-echo $x > temp
-cat temp concatenated_raw > wos_info.csv
-rm temp concatenated_raw
+cat raw_wos/* | grep -A 10 "^EM " | grep "^PY " | cut -c 4- > years
+```
+
+Emails and years is manually combined in spreadsheet program and saved to csv. Unique email list subsequently created with the following R code
+
+```R
+x <- read.csv(file = 'collated_emails_years.csv', header = FALSE, stringsAsFactors = FALSE)
+
+x <- unique(unlist(strsplit(x$V1, '; ', fixed = TRUE)))
+
+write.table(x, 'emails_uniq.csv', row.names = FALSE, col.names = FALSE)
 ```
